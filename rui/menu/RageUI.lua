@@ -267,7 +267,7 @@ RageUI.Settings = {
             Text = { X = 8, Y = 3, Scale = 0.35 },
             PreText = { X = 0, Y = 3, Scale = 0.35 },
         },
-        Background = { Dictionary = "commonmenu", Texture = "interaction_bgd", Y = 0, Width = 431 },
+        Background = { Dictionary = "commonmenu", Texture = "gradient_bgd", Y = 0, Width = 431 },
         Navigation = {
             Rectangle = { Width = 431, Height = 18 },
             Offset = 5,

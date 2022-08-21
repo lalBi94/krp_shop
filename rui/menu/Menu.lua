@@ -19,9 +19,9 @@
 ---@public
 function RageUI.CreateMenu(Title, Subtitle, X, Y, TextureDictionary, TextureName, R, G, B, A)
 
-    R = 0
-    G = 0 
-    B = 0
+    R = 255
+    G = 255
+    B = 255
     A = 255
 
     ---@type table
@@ -51,8 +51,8 @@ function RageUI.CreateMenu(Title, Subtitle, X, Y, TextureDictionary, TextureName
     Menu.Open = false
     Menu.Controls = RageUI.Settings.Controls
     Menu.Index = 1
-    Menu.Sprite = { Dictionary = TextureDictionary or "commonmenu", Texture = TextureName or "gradient_bgd", Color = { R = 0, G = 0, B = 0, A = 0 } }
-    Menu.Rectangle =  { R = 0, G = 0, B = 0, A = 255 }
+    Menu.Sprite = { Dictionary = TextureDictionary or "commonmenu", Texture = TextureName or "interaction_bgd", Color = { R = R, G = G, B = B, A = A } }
+    Menu.Rectangle =  { R = R, G = G, B = B, A = 0 }
     Menu.Pagination = { Minimum = 1, Maximum = 10, Total = 10 }
     Menu.Safezone = true
     Menu.SafeZoneSize = nil
@@ -119,7 +119,7 @@ function RageUI.CreateSubMenu(ParentMenu, Title, Subtitle, X, Y, TextureDictiona
             Menu.WidthOffset = ParentMenu.WidthOffset
             Menu.Safezone = ParentMenu.Safezone
             if ParentMenu.Sprite then
-                Menu.Sprite = { Dictionary = TextureDictionary or ParentMenu.Sprite.Dictionary, Texture = TextureName or ParentMenu.Sprite.Texture, Color = { ParentMenu.Sprite.Color.R, ParentMenu.Sprite.Color.G, ParentMenu.Sprite.Color.B, ParentMenu.Sprite.Color.A } }
+                Menu.Sprite = { Dictionary = TextureDictionary or "commonmenu", Texture = TextureName or "gradient_bgd", Color = { 0, 0, 0, 0 } }
             else
                 Menu.Rectangle = ParentMenu.Rectangle
             end
@@ -238,7 +238,7 @@ function RageUI.Menus:SetSubtitle(Subtitle)
         self.PageCounterColour = ""
     end
     if self.Subtitle ~= "" then
-        local SubtitleLineCount = GetLineCount(self.Subtitle, self.X + RageUI.Settings.Items.Subtitle.Text.X, self.Y + RageUI.Settings.Items.Subtitle.Text.Y, 0, RageUI.Settings.Items.Subtitle.Text.Scale, 245, 245, 245, 255, nil, false, false, RageUI.Settings.Items.Subtitle.Background.Width + self.WidthOffset)
+        local SubtitleLineCount = GetLineCount(self.Subtitle, self.X + RageUI.Settings.Items.Subtitle.Text.X, self.Y + RageUI.Settings.Items.Subtitle.Text.Y, 0, RageUI.Settings.Items.Subtitle.Text.Scale, 245, 245, 245, 0, nil, false, false, RageUI.Settings.Items.Subtitle.Background.Width + self.WidthOffset)
 
         if SubtitleLineCount > 1 then
             self.SubtitleHeight = 18 * SubtitleLineCount
@@ -274,7 +274,7 @@ end
 ---@return nil
 ---@public
 function RageUI.Menus:EditSpriteColor(R, G, B, A)
-    if self.Sprite.Dictionary == "OnestlaFilsDePuteGrr" then
+    if self.Sprite.Dictionary == "commonmenu" then
         self.Sprite.Color = { R = tonumber(R) or 255, G = tonumber(G) or 255, B = tonumber(B) or 255, A = tonumber(A) or 255 }
     end
 end
@@ -314,7 +314,7 @@ end
 ---@return nil
 ---@public
 function RageUI.Menus:SetSpriteBanner(TextureDictionary, Texture)
-    self.Sprite = { Dictionary = TextureDictionary or "OnestlaFilsDePuteGrr", Texture = Texture or "interaction_bgd" }
+    self.Sprite = { Dictionary = "commonmenu", Texture = "gradient_bgd" }
     self.Rectangle = nil
 end
 
