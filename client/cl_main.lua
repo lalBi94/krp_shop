@@ -40,46 +40,49 @@ function getListReward(whatsreward)
   return exp
 end
 
+-- Menu
 -- main
 function mainmenu()
+  Citizen.Wait(100)
   local main = RageUI.CreateMenu(Config.Main.Title, Config.Main.Sub, Config.Main.HW.x, Config.Main.HW.y) 
-    RageUI.Visible(main, not RageUI.Visible(main))
+  RageUI.Visible(main, not RageUI.Visible(main))
 
-    while(main) do 
-      Citizen.Wait(0)
+  while(main) do 
+    Citizen.Wait(1)
 
-      RageUI.IsVisible(main, function() 
-        RageUI.Separator(Config.Money.Init)
-        RageUI.Button(Config.Main.Button.Vehicle, nil, { RightLabel = "🚘" }, true, {onSelected = function()
-          vehmenu()
-        end, onActive = function() end})
+    RageUI.IsVisible(main, function() 
+      RageUI.Separator(Config.Money.Init)
+      RageUI.Button(Config.Main.Button.Vehicle, nil, { RightLabel = "🚘" }, true, {onSelected = function()
+        vehmenu()
+      end, onActive = function() end})
 
-        RageUI.Button(Config.Main.Button.Money, nil, { RightLabel = "💸" }, true, {onSelected = function()
-          moneymenu()
-        end, onActive = function() end})
+      RageUI.Button(Config.Main.Button.Money, nil, { RightLabel = "💸" }, true, {onSelected = function()
+        moneymenu()
+      end, onActive = function() end})
 
-        RageUI.Button(Config.Main.Button.Box, nil, { RightLabel = "🎁" }, true, {onSelected = function()
-          lootmenu()
-        end, onActive = function() end})
+      RageUI.Button(Config.Main.Button.Box, nil, { RightLabel = "🎁" }, true, {onSelected = function()
+        lootmenu()
+      end, onActive = function() end})
 
-        RageUI.Button(Config.Main.Button.Coin, nil, { RightLabel = Config.Money.Abrev }, true, {onSelected = function()
-          notif(Config.Main.Button.Discord)
-        end, onActive = function() end})
-      end)
+      RageUI.Button(Config.Main.Button.Coin, nil, { RightLabel = Config.Money.Abrev }, true, {onSelected = function()
+        notif(Config.Main.Button.Discord)
+      end, onActive = function() end})
+    end)
 
-      if(not RageUI.Visible(main)) then
-        main = RMenu:DeleteType(Config.RageUI_Title, true)
-      end
+    if(not RageUI.Visible(main)) then
+      main = RMenu:DeleteType(Config.Main.Title, true)
     end
+  end
 end
 
 -- vehicles
 function vehmenu()
+  Citizen.Wait(100)
   local veh = RageUI.CreateMenu(Config.Vehicle.Title, Config.Vehicle.Sub, Config.Main.HW.x, Config.Main.HW.y) 
   RageUI.Visible(veh, not RageUI.Visible(veh))
   
   while(veh) do 
-    Citizen.Wait(0)
+    Citizen.Wait(1)
 
     RageUI.IsVisible(veh, function() 
       RageUI.Separator(Config.Money.Init)
@@ -94,18 +97,19 @@ function vehmenu()
     end)
 
     if(not RageUI.Visible(veh)) then
-      veh = RMenu:DeleteType(Config.RageUI_Title, true)
+      mainmenu()
     end
   end
 end
 
 -- lootbox
 function lootmenu()
+  Citizen.Wait(100)
   local loot = RageUI.CreateMenu(Config.Lootbox.Title, Config.Lootbox.Sub, Config.Main.HW.x, Config.Main.HW.y) 
   RageUI.Visible(loot, not RageUI.Visible(loot))
   
   while(loot) do 
-    Citizen.Wait(0)
+    Citizen.Wait(1)
 
     RageUI.IsVisible(loot, function() 
       RageUI.Separator(Config.Money.Init)
@@ -120,25 +124,26 @@ function lootmenu()
     end)
 
     if(not RageUI.Visible(loot)) then
-      loot = RMenu:DeleteType(Config.RageUI_Title, true)
+      mainmenu()
     end
   end
 end
 
 -- money ig
 function moneymenu()
+  Citizen.Wait(100)
   local money = RageUI.CreateMenu(Config.Moneyl.Title, Config.Moneyl.Sub, Config.Main.HW.x, Config.Main.HW.y) 
   RageUI.Visible(money, not RageUI.Visible(money))
   
   while(money) do 
-    Citizen.Wait(0)
+    Citizen.Wait(1)
 
     RageUI.IsVisible(money, function() 
       RageUI.Separator(Config.Money.Init)
 
       for k, v in pairs(Config.Moneyl.Button) do
         RageUI.Button(v.name, nil,{ RightLabel = "~h~~w~"..v.price..Config.Money.Abrev }, true, {onSelected = function()
-          confirm("m", v.name, v.price)
+          confirm("m", v.name, v.price, nil, v.amount)
         end, onActive = function() 
           RenderSprite(Config.ImageFrom, v.image, 1000, 200, Config.Stock.Size.money.w, Config.Stock.Size.money.h, 125, 255, 255, 255, 255)
         end})
@@ -146,18 +151,19 @@ function moneymenu()
     end)
 
     if(not RageUI.Visible(money)) then
-      money = RMenu:DeleteType(Config.RageUI_Title, true)
+      mainmenu()
     end
   end
 end
 
 function lootanimation(level) 
+  Citizen.Wait(100)
   local anim = RageUI.CreateMenu(Config.Lootbox.Title, Config.Lootbox.Sub, Config.Main.HW.x, Config.Main.HW.y) 
   local rewardcase = 1
   RageUI.Visible(anim, not RageUI.Visible(anim))
   
   while(anim) do 
-    Citizen.Wait(0)
+    Citizen.Wait(1)
 
     RageUI.IsVisible(anim, function()
       RageUI.Separator(" ")
@@ -183,23 +189,28 @@ function lootanimation(level)
     end)
 
     if(not RageUI.Visible(anim)) then
-      anim = RMenu:DeleteType(Config.RageUI_Title, true)
+      anim = RMenu:DeleteType(Config.Lootbox.Title, true)
     end
   end
 end
 
 function GetPrice(rew)
+  Citizen.Wait(100)
   local rew_name = rew.name 
   local rew_money = rew.amount or nil
   local rew_vehicles = rew.spawn or nil
   local rew_image = rew.image
   local rew_dim = {w = rew.w, h = rew.h}
 
+  if(rew_money ~= nil) then
+    TriggerServerEvent("Zod#8682::GiveMoney", rew_money)
+  end
+
   local finalloot = RageUI.CreateMenu(Config.Lootbox.Title, " ", Config.Main.HW.x, Config.Main.HW.y) 
   RageUI.Visible(finalloot, not RageUI.Visible(finalloot))
   
   while(finalloot) do
-    Citizen.Wait(0)
+    Citizen.Wait(1)
 
     RageUI.IsVisible(finalloot, function()
       RageUI.Separator(" ")
@@ -219,18 +230,19 @@ function GetPrice(rew)
     end)
 
     if(not RageUI.Visible(finalloot)) then
-      finalloot = RMenu:DeleteType(Config.RageUI_Title, true)
+      finalloot = RMenu:DeleteType(Config.Lootbox.Title, true)
     end
   end
 end
 
 -- Confirm
-function confirm(typeO, object, price, lootlevel)
+function confirm(typeO, object, price, lootlevel, amount)
+  Citizen.Wait(100)
   local conf = RageUI.CreateMenu(Config.Confirm.Title, object, Config.Main.HW.x, Config.Main.HW.y) 
   RageUI.Visible(conf, not RageUI.Visible(conf))
   
   while(conf) do 
-    Citizen.Wait(0)
+    Citizen.Wait(1)
 
     RageUI.IsVisible(conf, function() 
       RageUI.Separator(Config.Money.Init)
@@ -261,7 +273,14 @@ function confirm(typeO, object, price, lootlevel)
           if(typeO == "l" and check == true) then
             local reward = getRandPrice(Config.Lootbox.Button[lootlevel].Reward)
             lootanimation(lootlevel)
-          else
+          end
+
+          if(typeO == "v" and check == true) then
+            RageUI.CloseAll()
+          end
+
+          if(typeO == "m" and check == true) then
+            TriggerServerEvent("Zod#8682::GiveMoney", amount)
             RageUI.CloseAll()
           end
         end)
@@ -273,7 +292,7 @@ function confirm(typeO, object, price, lootlevel)
     end)
 
     if(not RageUI.Visible(conf)) then
-      money = RMenu:DeleteType(Config.RageUI_Title, true)
+      money = RMenu:DeleteType(Config.Confirm.Title, true)
     end
   end
 end

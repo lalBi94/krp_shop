@@ -73,6 +73,19 @@ Config.Vehicle.Button = {
   {name = "Rolls-Royce Wraith", price = 5500, image = Config.Stock.Image.RollsRoyceWraith}
 }
 
+-- Money list
+Config.Moneyl = {}
+Config.Moneyl.Button = {}
+
+Config.Moneyl.Title = Config.RageUI_Title
+Config.Moneyl.Sub = "Argent IG"
+
+Config.Moneyl.Button = {
+  {name = "50 000 $", price = 1000, amount = 50000, image = Config.Stock.Image.fifty_thousand},
+  {name = "100 000 $", price = 2000, amount = 100000, image = Config.Stock.Image.hundred_thousand},
+  {name = "150 000 $", price = 2900, amount = 150000, image = Config.Stock.Image.fifty_hundred_thousand}
+}
+
 -- Lootbox list
 Config.Lootbox = {}
 Config.Lootbox.Button = {}
@@ -101,17 +114,6 @@ Config.Lootbox.Button[3].Reward = {
   {name = "RS6 +", typeO = "v", spawn = "rs6+", image = Config.Stock.Image.rs6plus, h = Config.Stock.Size.veh.h, w = Config.Stock.Size.veh.w},
   {name = "150 000 $", typeO = "m", amount = 150000, image = Config.Stock.Image.fifty_hundred_thousand, h = Config.Stock.Size.money.h, w = Config.Stock.Size.money.w}
 }
-
--- Money list
-Config.Moneyl = {}
-Config.Moneyl.Button = {}
-
-Config.Moneyl.Title = Config.RageUI_Title
-Config.Moneyl.Sub = "Argent IG"
-
-Config.Moneyl.Button[1] = {name = "50 000 $", price = 1000, image = Config.Stock.Image.fifty_thousand}
-Config.Moneyl.Button[2] = {name = "100 000 $", price = 2000, image = Config.Stock.Image.hundred_thousand}
-Config.Moneyl.Button[3] = {name = "150 000 $", price = 2900, image = Config.Stock.Image.fifty_hundred_thousand}
 
 -- Confirm
 Config.Confirm = {}
