@@ -1,22 +1,28 @@
 ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
+RegisterNetEvent("Zod#8682::CheckerPerms")
 RegisterNetEvent("Zod#8682::GetShopInfo")
 RegisterNetEvent("Zod#8682::BuySomething")
 RegisterNetEvent("Zod#8682::GiveMoney")
-
--- Function
-function GetRandomPlate() 
-    local exp = "DRP"
-
-    for i=3, 7 do
-        exp = exp..math.random(1, 9)
-    end
-
-    return exp
-end
+RegisterNetEvent("Zod#8682::GiveVeh")
+RegisterNetEvent("Zod#8682::GiveCoin")
 
 -- Events
+AddEventHandler("Zod#8682::CheckerPerms", function()
+    local _src = source
+    local xPlayer = ESX.GetPlayerFromId(_src)
+    local steam = xPlayer.identifier
+
+    MySQL.Async.fetchAll("SELECT permission_level FROM users WHERE identifier=@s", {["s"] = steam}, function(data) 
+        if(data[1].permission_level == 4) then
+            TriggerClientEvent("Zod#8682::ReceiveCheck", _src, true)
+        else
+            TriggerClientEvent("Zod#8682::ReceiveCheck", _src, false)
+        end
+    end)
+end)
+
 AddEventHandler("Zod#8682::GetShopInfo", function() 
     local _src = source
     local xPlayer = ESX.GetPlayerFromId(_src)
@@ -45,13 +51,13 @@ AddEventHandler("Zod#8682::BuySomething", function(price, typeO, object)
 
         if(data[1].coin < price) then
             TriggerClientEvent("Zod#8682::ConfirmForLoot", _src, false)
-            TriggerClientEvent('esx:showNotification', _src, "~r~Vous n'avez pas de ~p~Dream~b~Coin !")
+            TriggerClientEvent('esx:showNotification', _src, "~r~Vous n'avez pas assez de ~p~Dream~b~Coin !")
             return
         end
 
         MySQL.Async.execute("UPDATE drp_shop SET coin=@p WHERE identifier=@s", {["p"] = (data[1].coin-price), ["s"] = steam}, function()
+            print("^6{Zod} :: "..steam.." vien de payer : ^2"..object.." ^0")
             TriggerClientEvent("Zod#8682::ConfirmForLoot", _src, true)
-            TriggerClientEvent('esx:showNotification', _src, "Vous venez d'acheter ~b~"..object.."~w~ \n~r~-"..price.." ~p~D~b~C")
         end)
     end)
 end)
@@ -62,18 +68,29 @@ AddEventHandler("Zod#8682::GiveMoney", function(amount)
     local steam = xPlayer.identifier
     
     xPlayer.addMoney(amount)
+    TriggerClientEvent('esx:showNotification', _src, "Vous venez d'acheter ~b~ : "..amount.." $~s~~h~\n\nL'equipe Dream ~p~Role~b~Play ~s~vous remercie !")
 end)
 
-
-
--- test
-RegisterNetEvent("Zod#8682::GiveVeh")
-AddEventHandler("Zod#8682::GiveVeh", function(plate, vehicle)
+AddEventHandler("Zod#8682::GiveVeh", function(veh, name, plate)
     local _src = source
-    local xPlayer = ESX.GetPlayerFromId(_src)
+	local xPlayer = ESX.GetPlayerFromId(_src)
     local steam = xPlayer.identifier
-    
-    MySQL.Async.execute("INSERT INTO owned_vehicles(identifier, plate, vehicle) VALUES(@s, @p, @v)", {["s"] = steam, ["p"] = plate, ["v"] = vehicle}, function()
-        print("Ca a marche pelo")
+
+	MySQL.Async.execute('INSERT INTO owned_vehicles (owner, plate, vehicle) VALUES (@owner, @plate, @vehicle)', {['@owner'] = steam, ['@plate'] = plate, ['@vehicle'] = json.encode(veh)}, function() 
+        TriggerClientEvent('esx:showNotification', _src, "Vous venez d'acheter ~b~ : "..name.."~s~~h~\n\nL'equipe Dream ~p~Role~b~Play ~s~vous remercie !")
+    end)
+end)
+
+AddEventHandler("Zod#8682::GiveCoin", function(targetPlayer, amount) 
+    local _src = source
+    local _tsrc = targetPlayer
+    local xPlayer = ESX.GetPlayerFromId(_tsrc)
+    local steam = xPlayer.identifier
+
+    MySQL.Async.fetchAll("SELECT coin FROM drp_shop WHERE identifier=@s", {["s"] = steam}, function(data) 
+        MySQL.Async.execute("UPDATE drp_shop SET coin=@c WHERE identifier=@s", {["c"] = (data[1].coin + amount), ["s"] = steam}, function() 
+            TriggerClientEvent('esx:showNotification', _src, amount.." ~p~Dream~b~Coin transmis a ID : ".._tsrc)
+            TriggerClientEvent('esx:showNotification', _tsrc, "Voici "..amount.." ~p~Dream~b~Coin pour vous !")
+        end)
     end)
 end)

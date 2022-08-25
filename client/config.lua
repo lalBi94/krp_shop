@@ -62,15 +62,15 @@ Config.Vehicle.Title = Config.RageUI_Title
 Config.Vehicle.Sub = "Véhicules"
 
 Config.Vehicle.Button = {
-  {name = "T-Max", price = 950, image = Config.Stock.Image.tmax},
-  {name = "Twingo", price = 1500, image = Config.Stock.Image.twingo},
-  {name = "BMW M780i", price = 1700, image = Config.Stock.Image.bmwm780i},
-  {name = "A45", price = 1800, image = Config.Stock.Image.a45},
-  {name = "Bugatti Chiron", price = 1850, image = Config.Stock.Image.chiron},
-  {name = "RS3", price = 1900, image = Config.Stock.Image.rs3},
-  {name = "RS6 +", price = 2000, image = Config.Stock.Image.rs6plus},
-  {name = "RS7", price = 3000, image = Config.Stock.Image.rs7},
-  {name = "Rolls-Royce Wraith", price = 5500, image = Config.Stock.Image.RollsRoyceWraith}
+  {name = "T-Max", model = "tmax", price = 950, image = Config.Stock.Image.tmax},
+  {name = "Twingo", model = "twingo", price = 1500, image = Config.Stock.Image.twingo},
+  {name = "BMW M780i", model = "17m760i", price = 1700, image = Config.Stock.Image.bmwm780i},
+  {name = "A45", model = "A45", price = 1800, image = Config.Stock.Image.a45},
+  {name = "Bugatti Chiron", model = "chiron", price = 1850, image = Config.Stock.Image.chiron},
+  {name = "RS3", model = "audirs3", price = 1900, image = Config.Stock.Image.rs3},
+  {name = "RS6 +", model = "rs6+", price = 2000, image = Config.Stock.Image.rs6plus},
+  {name = "RS7", model = "RS72020", price = 3000, image = Config.Stock.Image.rs7},
+  {name = "Rolls-Royce Wraith", model = "wraithb", price = 5500, image = Config.Stock.Image.RollsRoyceWraith}
 }
 
 -- Money list
@@ -103,7 +103,7 @@ Config.Lootbox.Button[1].Reward = {
 
 Config.Lootbox.Button[2] = {name = "Boîte en Or", price = 2500, image = Config.Stock.Image.gold}
 Config.Lootbox.Button[2].Reward = {
-  {name = "A45", typeO = "v", spawn = "a45", image = Config.Stock.Image.a45, h = Config.Stock.Size.veh.h, w = Config.Stock.Size.veh.w}, 
+  {name = "A45", typeO = "v", spawn = "A45", image = Config.Stock.Image.a45, h = Config.Stock.Size.veh.h, w = Config.Stock.Size.veh.w}, 
   {name = "Twingo", typeO = "v", spawn = "twingo", image = Config.Stock.Image.twingo, h = Config.Stock.Size.veh.h, w = Config.Stock.Size.veh.w},
   {name = "100 000 $", typeO = "m", amount = 100000, image = Config.Stock.Image.hundred_thousand, h = Config.Stock.Size.money.h, w = Config.Stock.Size.money.w}
 }
