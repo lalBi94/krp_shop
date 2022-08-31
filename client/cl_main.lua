@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 -- Shop by Zod#8682
 -- Boutique par Zod#8682
 
@@ -360,3 +361,7 @@ end
 Citizen.CreateThread(function()
     print("^6Zod#8682 ^0:: for :: ^5Dream^0Role^1Play")
 end)
+=======
+local link = "https://kryptonproject.tebex.io/package/5273891"
+-- __lol xd ptd))/hgtfd654556eswerzedstorfliugkjblr
+>>>>>>> 4cbc87ec94e82f3f79500b673bdf635c0bda691a
