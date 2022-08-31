@@ -1,6 +1,11 @@
 fx_version 'adamant'
 game 'gta5'
 
+author "Zod#8682"
+desc "shop script esx/rageui"
+
+lua54 "yes"
+
 client_scripts{
     "rui/RMenu.lua",
     "rui/menu/RageUI.lua",

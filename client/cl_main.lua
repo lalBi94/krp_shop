@@ -1,7 +1,7 @@
 -- Shop by Zod#8682
 -- Boutique par Zod#8682
 
--- givecoin = Commande pour give des coins :)))))))))))))))
+-- givecoin id amount = Command to give coins :)))))))))))))))
 
 ESX = nil
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
